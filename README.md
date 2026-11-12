@@ -83,6 +83,15 @@ This is **not** a daily launch option. Vulkan traces grow quickly during gamepla
 
 This investigation also encountered a separate Steam delay at `CheckShaderDepotManifest`, before Wine/game processes existed. Moving only this game's shader cache aside and disabling shader pre-caching/background processing restored normal launch speed in the reported setup. Those changes were not isolated from each other, and are not required by the Radeon workaround. See the [separate startup-delay note](docs/investigation.md#separate-problem-steam-launch-delay) before clearing anything.
 
+## Related community reports
+
+These Reddit discussions were reviewed in a desktop browser on 2026-11-12. They report the same game and `vkResetCommandPool` symptom, but **do not establish the same underlying cause or validate this repository's Radeon-only workaround on those systems**.
+
+- [Error vkResetCommandPool when play The Crew Motorfest in ROG Ally z1e — r/Bazzite](https://www.reddit.com/r/Bazzite/comments/1n6go4d/): the author reports the error on Bazzite while the game works on SteamOS. Comments describe similar failures on another ROG Ally and a Minisforum V3, including a report that a separate desktop works.
+- [The Crew Motorfest Error on Bazzite — r/linux_gaming](https://www.reddit.com/r/linux_gaming/comments/1o4y65m/): Bazzite on ROG Ally X; the original photo shows `loader_thunks.c`, line 6554, and `!status && "vkResetCommandPool"`. A commenter reports success with PortProton/LG Proton; this is a community report, not an independently reproduced fix or evidence of what changed internally.
+
+Matching assertions are useful comparison points, not proof of NULL handles: those posts do not supply the fresh per-process Vulkan trace used in this investigation. No claim is made that their authors have tried `VK_LOADER_DRIVERS_SELECT`.
+
 ## Reporting another result
 
 Include GPU/driver/loader/Proton versions, whether software Vulkan devices are present, the exact symptom, the filter used, and whether it changes actual enumeration. State whether you reached a playable scene, not just whether the dialog disappeared. Review any excerpts before sharing. Reports of failures are useful too.
