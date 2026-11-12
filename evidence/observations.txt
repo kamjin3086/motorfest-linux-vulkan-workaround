@@ -1,0 +1,31 @@
+Selected observations from the failing and successful runs, 2026-11-12.
+NOT a complete log or a synthetic test fixture.
+Timestamp/PID/thread prefixes are omitted; raw addresses in Created device
+messages are omitted entirely. Full source logs remain private.
+
+FAILURE BASELINE: no driver filter; Wine Vulkan logging; no debugger
+Game Wine PID 0504 in the private source trace.
+
+wine_vkEnumeratePhysicalDevices Returning 2 devices.
+wine_vkCreateDevice Device name: "llvmpipe (LLVM 22.1.8, 256 bits)".
+[Device creation success message followed.]
+wine_vkCreateDevice Device name: "AMD Radeon 8060S Graphics (RADV STRIX_HALO)".
+[Device creation success message followed.]
+[Later, same-thread reset with non-NULL device and pool.]
+thunk64_vkResetCommandPool (nil), 0x0, 0
+[Tester observed Wine assertion: !status && "vkResetCommandPool".]
+
+SUCCESS: VK_LOADER_DRIVERS_SELECT=radeon_icd*; same Wine Vulkan logging;
+separate log destination; no debugger
+Game Wine PID 0510 in the private source trace.
+
+wine_vkEnumeratePhysicalDevices Returning 1 devices.
+wine_vkCreateDevice Device name: "AMD Radeon 8060S Graphics (RADV STRIX_HALO)".
+[All inspected device-creation names were Radeon; no llvmpipe creation.]
+[No NULL device-and-pool reset found at inspection time.]
+[Tester reported visible game graphics and smooth operation.]
+
+Square-bracketed lines above are editorial observations, NOT literal log text.
+This establishes an effective workaround in one setup, not an upstream root cause.
+Reversal, repeated cold starts, no-logging launch, and extended gameplay were
+not independently verified in the recorded session.

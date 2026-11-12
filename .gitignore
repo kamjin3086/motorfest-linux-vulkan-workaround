@@ -1,0 +1,24 @@
+# Private investigation artifacts: never force-add without manual review.
+/runs/
+/downloads/
+/snapshots/
+/private/
+/backups/
+*.log
+*.log.*
+*.dmp
+*.core
+core
+.env
+.env.*
+*.vdf
+*.reg
+*.exe
+*.dll
+*.so
+*.zip
+*.tar*
+*.gz
+__pycache__/
+*.py[cod]
+.venv/
